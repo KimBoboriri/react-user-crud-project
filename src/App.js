@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from 'reactstrap';
 import './App.css';
+import { Link } from 'react-router-dom'
+import Main from './components/body/Main';
+import Menu from './components/menu/Menu';
+import {menulist} from './list'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Card>
+      <CardHeader>
+        <Link to="/" style={{textDecoration:'none'}}>
+          <CardTitle tag="h5">DEV YOUNG</CardTitle>
+        </Link>
+      <Menu menulist={menulist} />
+      </CardHeader>
+      <CardBody>  
+        <Main />
+      </CardBody>
+      <CardFooter>
+        Copy aright reserved@20220411
+      </CardFooter>
+      </Card>
     </div>
   );
 }
