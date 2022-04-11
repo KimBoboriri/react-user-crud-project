@@ -28,7 +28,8 @@
     "postbuild":"cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "homepage":"https://kdy41000.github.io/react-user-crud-project/",
   "eslintConfig": {
