@@ -5,17 +5,16 @@ import Main from './components/body/Main';
 import Menu from './components/menu/Menu';
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import Logo from './components/logo/Logo';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Provider store={store}>
         <Card>
         <CardHeader>
-          <Link to="/" style={{textDecoration:'none'}}>
-            <CardTitle tag="h5">DEV YOUNG</CardTitle>
-          </Link>
-        <Menu />
+          <Logo />
+          <Menu />
         </CardHeader>
         <CardBody>  
           <Main />
@@ -28,5 +27,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

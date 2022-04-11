@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link }from 'react-router-dom'
-import { Nav, NavItem, NavLink } from 'reactstrap'
+import { Nav, NavItem, NavLink,
+    UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap'
 
 import { connect } from 'react-redux'  //스토어를 사용하기 위해 불러옴
 import { changeMenu } from '../../redux'; 
@@ -22,6 +23,29 @@ console.log('aaaa',menus);
        <div>
            <Nav pills>
                {link}
+               <UncontrolledDropdown
+                inNavbar
+                nav
+                >
+                <DropdownToggle
+                    caret
+                    nav
+                >
+                    확진자 추이(작업예정)
+                </DropdownToggle>
+                <DropdownMenu right>
+                    <DropdownItem>
+                    4월
+                    </DropdownItem>
+                    <DropdownItem>
+                    3월
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                    1년 통계
+                    </DropdownItem>
+                </DropdownMenu>
+                </UncontrolledDropdown>
             </Nav>
         </div>
     );
