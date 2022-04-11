@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link }from 'react-router-dom'
 import { Nav, NavItem, NavLink } from 'reactstrap'
 
-//메뉴는 db조회로 수정 할 것 없음
-const Menu = ({menulist}) => {
-   const [selectedKey, setSelectedKey] = useState(1);
+import { connect } from 'react-redux'  //스토어를 사용하기 위해 불러옴
+import { changeMenu } from '../../redux'; 
 
-   const link = menulist.map((menu) =>
+//메뉴는 db조회로 수정 할 것 없음
+const Menu = ({changeMenu, menus, selected_menu}) => {
+console.log('aaaa',menus);
+   const link = menus.map((menu) =>
    <NavItem key={menu.key}>
        <Link to={menu.link}>
-           {selectedKey === menu.key ? 
-           <NavLink active onClick={()=> setSelectedKey(menu.key)}>{menu.name}</NavLink> :
-           <NavLink onClick={()=> setSelectedKey(menu.key)}>{menu.name}</NavLink>}
+           {selected_menu === menu.key ? 
+           <NavLink active onClick={()=> changeMenu(menu.key)}>{menu.name}</NavLink> :
+           <NavLink onClick={()=> changeMenu(menu.key)}>{menu.name}</NavLink>}
        </Link>
    </NavItem>
    )
@@ -25,4 +27,16 @@ const Menu = ({menulist}) => {
     );
 };
 
-export default Menu;
+const mapStateToProps = ({menuObj}) => {
+    console.log("mapStateToProps:",menuObj);
+    return {
+        menus: menuObj.menus,
+        selected_menu: menuObj.selected_menu
+    }
+}
+
+const mapDispatchToProps = {
+    changeMenu: (menuKey) => changeMenu(menuKey)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { 
     Form,
@@ -9,17 +10,11 @@ import {
     Table
 } from 'reactstrap';
 
-const UserList = () => {
-    const [userList, setUserList] = useState([
-        {no: 1, id:'kdy', name:'김동영'},
-        {no: 2, id:'lee', name:'이이이'}
-    ]);
+import { removeUserHandler } from '../../../redux';
 
-    function handleDelUser(userId) {
-       setUserList(userList.filter(user => user.id !== userId));
-    }
+const UserList = ({removeUserHandler, users}) => {
 
-    const userListTag = userList.map((user) => 
+    const userListTag = users.map((user) => 
             <tr key={user.id}>
                 <td>{user.no}</td>
                 <td>{user.id}</td>
@@ -29,11 +24,10 @@ const UserList = () => {
                     </Link>
                 </td>
                 <td>
-                   <Button color="danger" outline onClick={()=> handleDelUser(user.id)}>삭제</Button>
+                   <Button color="danger" outline onClick={()=> removeUserHandler(user.id)}>삭제</Button>
                 </td>
             </tr>
             );
-
     return (
         <div>
             <Link to="/addUser">
@@ -59,4 +53,15 @@ const UserList = () => {
     );
 };
 
-export default UserList;
+const mapStateToProps = ({userObj}) => {
+    console.log("mapStateToProps:",userObj);
+    return {
+        users: userObj.users
+    }
+}
+
+const mapDispatchToProps = {
+    removeUserHandler: (userId) => removeUserHandler(userId)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
