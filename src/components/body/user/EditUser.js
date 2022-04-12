@@ -24,7 +24,6 @@ const EditUser = ({editUserHandler}) => {
         e.preventDefault();
         if(name === '' || name == null) return alert('Name을 입력해 주세요.');
         const targetUser = {id: param.userid, name: name};
-        console.log("바꿀대상:",targetUser);
         editUserHandler(targetUser);
         navigate("/userlist");
     }

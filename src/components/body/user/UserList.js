@@ -2,10 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { 
-    Form,
-    FormGroup,
-    Label,
-    Input,
     Button,
     Table
 } from 'reactstrap';
