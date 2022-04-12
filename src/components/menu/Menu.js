@@ -8,22 +8,44 @@ import { changeMenu } from '../../redux';
 
 //메뉴는 db조회로 수정 할 것 없음
 const Menu = ({changeMenu, menus, selected_menu}) => {
-console.log('aaaa',menus);
    const link = menus.map((menu) =>
+   menu.link !== undefined ? (
    <NavItem key={menu.key}>
-       <Link to={menu.link}>
+       <Link to={menu.link} style={{textDecoration:'none'}}>
            {selected_menu === menu.key ? 
            <NavLink active onClick={()=> changeMenu(menu.key)}>{menu.name}</NavLink> :
            <NavLink onClick={()=> changeMenu(menu.key)}>{menu.name}</NavLink>}
        </Link>
    </NavItem>
+   ) : (
+    <UncontrolledDropdown
+    inNavbar
+    nav
+    >
+    <DropdownToggle
+        caret
+        nav
+    >
+        {menu.name}
+    </DropdownToggle>
+    <DropdownMenu>
+        {menu.submenu.map((sub) =>
+            <Link to={sub.link} style={{textDecoration:'none'}}>
+                  <DropdownItem onClick={()=> changeMenu(sub.key)}>
+                    {sub.name}
+                  </DropdownItem>
+            </Link>
+        )}
+    </DropdownMenu>
+    </UncontrolledDropdown>
+   )
    )
 
    return (
        <div>
-           <Nav pills>
+           <Nav pills style={{width:"100%"}}>
                {link}
-               <UncontrolledDropdown
+               {/* <UncontrolledDropdown
                 inNavbar
                 nav
                 >
@@ -40,12 +62,8 @@ console.log('aaaa',menus);
                     <DropdownItem>
                     3월
                     </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                    1년 통계
-                    </DropdownItem>
                 </DropdownMenu>
-                </UncontrolledDropdown>
+                </UncontrolledDropdown> */}
             </Nav>
         </div>
     );

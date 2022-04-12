@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route }from 'react-router-dom'
 import Home from './home/Home'
+import AptInfo from './houseinfo/AptInfo';
+import OfficeInfo from './houseinfo/OfficeInfo';
 import AddUser from './user/AddUser';
 import EditUser from './user/EditUser';
 import UserList from './user/UserList';
@@ -13,6 +15,9 @@ const Main = () => {
             <Route exact path="/userlist" element={<UserList/>} />
             <Route exact path="/adduser" element={<AddUser/>} />
             <Route exact path="/edituser/:userid" element={<EditUser/>} />
+
+            <Route exact path="/aptinfo" element={<AptInfo/>} />
+            <Route exact path="/officeinfo" element={<OfficeInfo/>} />
         </Routes>
     );
 };

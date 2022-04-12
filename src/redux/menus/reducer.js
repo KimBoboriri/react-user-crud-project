@@ -4,7 +4,8 @@ const initialState = {
     selected_menu: 1,
     menus: [
         {key: 1, link: "/", component:"Home", name : "홈"},
-        {key: 2, link: "/userlist", component: "UserList", name : "사용자 목록"}
+        {key: 2, link: "/userlist", component: "UserList", name : "사용자 목록"},
+        {key: 3, name : "청약정보", submenu:[{key:4, link: "/aptinfo", name: "아파트 청약"},{key:5, link: "/officeinfo", name: "오피스텔 청약"}]}
     ]
 }
 

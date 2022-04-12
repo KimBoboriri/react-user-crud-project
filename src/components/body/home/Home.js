@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from 'reactstrap'; 
+import { 
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Button
+} from 'reactstrap';
 
 const Home = () => {
     const [fadeContent, setFadeContent] = useState('hide');
@@ -9,9 +15,10 @@ const Home = () => {
     }
     const fadeContentTag = fadeContent === 'show' ? "React, Redux, ReactStrap, Bootstrap" : "";
     return (
-        <div>
-           <img width="850" height="780" alt="home_image" src={process.env.PUBLIC_URL  + '/img/homelogo.png'} />
-           <div>
+        <Form style={{width:'100%', height:'80vh'}}>
+            <FormGroup>
+                <img style={{ width:"50vh",height:"auto"}} alt="home_image" src={process.env.PUBLIC_URL  + '/img/homelogo.png'} />
+            </FormGroup>
             <Button
                 color="primary"
                 onClick={()=> ctrlContentsHandler()}
@@ -19,8 +26,7 @@ const Home = () => {
             <p>
                 {fadeContentTag}
             </p>
-            </div>
-        </div>
+        </Form>
     );
 };
 
