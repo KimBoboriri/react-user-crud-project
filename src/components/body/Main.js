@@ -3,6 +3,7 @@ import { Routes, Route }from 'react-router-dom'
 import Home from './home/Home'
 import AptInfo from './houseinfo/AptInfo';
 import OfficeInfo from './houseinfo/OfficeInfo';
+import NotFound from './notfound/NotFound';
 import AddUser from './user/AddUser';
 import EditUser from './user/EditUser';
 import UserList from './user/UserList';
@@ -18,6 +19,7 @@ const Main = () => {
 
             <Route exact path="/aptinfo" element={<AptInfo/>} />
             <Route exact path="/officeinfo" element={<OfficeInfo/>} />
+            <Route path={"*"} element={<NotFound/>}/>
         </Routes>
     );
 };

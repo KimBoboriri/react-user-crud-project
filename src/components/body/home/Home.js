@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { 
     Form,
     FormGroup,
-    Label,
-    Input,
     Button
 } from 'reactstrap';
 
@@ -13,7 +11,7 @@ const Home = () => {
         if(fadeContent === 'hide') setFadeContent('show');
         else if(fadeContent === 'show') setFadeContent('hide');
     }
-    const fadeContentTag = fadeContent === 'show' ? "React, Redux, ReactStrap, Bootstrap" : "";
+    const fadeContentTag = fadeContent === 'show' ? "React, Redux, ReactStrap, Bootstrap, ReactPagination, OpenAPI" : "";
     return (
         <Form style={{width:'100%', height:'80vh'}}>
             <FormGroup>
@@ -23,7 +21,7 @@ const Home = () => {
                 color="primary"
                 onClick={()=> ctrlContentsHandler()}
             >사용기술</Button>
-            <p>
+            <p style={{fontWeight:'bold'}}>
                 {fadeContentTag}
             </p>
         </Form>

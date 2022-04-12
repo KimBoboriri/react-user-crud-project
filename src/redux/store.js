@@ -6,8 +6,10 @@ import thunk from 'redux-thunk';  //액션을 순차적으로 일어나도록 �
 
 const middleware = [logger, thunk]
 
-const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(...middleware)
-    ));
+const store = createStore(rootReducer
+                        , composeWithDevTools(
+                        applyMiddleware(...middleware)
+                        )
+    );
 
 export default store;

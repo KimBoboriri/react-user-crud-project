@@ -1,4 +1,5 @@
-import { FETCH_LIST_REQUEST, FETCH_LIST_SUCCESS, FETCH_LIST_FAIL } from './type'
+import { CHANGE_AREA,
+        FETCH_LIST_REQUEST, FETCH_LIST_SUCCESS, FETCH_LIST_FAIL } from './type'
 
 export const fetchListRequest = () => {
     return {
@@ -18,12 +19,27 @@ export const fetchListFail = (error) => {
     }
 }
 
-export const fetchList = () => {
+export const changeSelectedArea = (area) => {
+    return {
+        type: CHANGE_AREA,
+        payload: area
+    }
+}
+
+export const fetchList = (page, area) => {
+    const url = (area === '') ? `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=${page}&perPage=10&serviceKey=${process.env.REACT_APP_APT_INFO_OPENAPI_KEY}` : `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=${page}&perPage=10&${encodeURI("cond[SUBSCRPT_AREA_CODE_NM::EQ]=" + area)}&serviceKey=${process.env.REACT_APP_APT_INFO_OPENAPI_KEY}`
     return(dispatch) => {
         dispatch(fetchListRequest())
-        fetch("https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10&serviceKey=2vPhGWswZoC8q%2FzEmfIHldIThUwTlK5L32P1PK0o05gxZdSMQF96AMO317SZQroRQFvEHTxg9ndEIkjIXd2Kyw%3D%3D")
+        fetch(url)
         .then(response => response.json())
         .then(list => dispatch(fetchListSuccess(list)))
         .catch(error => dispatch(fetchListFail(error)))
+    }
+}
+
+export const changeArea = (area) => {
+    return(dispatch) => {
+        dispatch(fetchList(1,area));
+        dispatch(changeSelectedArea(area))
     }
 }

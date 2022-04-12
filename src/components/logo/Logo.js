@@ -10,7 +10,7 @@ const Logo = ({changeMenu, menus}) => {
    const logoObj = menus.find((menu) => menu.key === 1);
    return (
         <Link to={logoObj.link} style={{textDecoration:'none'}} onClick={()=> changeMenu(logoObj.key)}>
-          <CardTitle tag="h5">DEV YOUNG</CardTitle>
+          <CardTitle tag="h5" style={{fontWeight:'bold',color:'purple'}}>DEV YOUNG</CardTitle>
         </Link>
     );
 };

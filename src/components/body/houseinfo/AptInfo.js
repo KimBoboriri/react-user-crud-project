@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { 
     Form,
     FormGroup,
     Label,
-    Input,
+    Col,
     Button,
     Table
 } from 'reactstrap';
-import { fetchList } from '../../../redux';
 
-const AptInfo = ({fetchList, houses}) => {
-    const [house, setHouse] = useState([]);
-    //const [data, setData] = useState(houses);
-    console.log("==============:",house);
-//console.log("=========:",data);
+import { fetchList, changeArea } from '../../../redux';
+import Paging from '../pagination/Paging';
+
+const AptInfo = ({fetchList, changeArea, loading, err, houses, areaList, selectedArea}) => {
+    const [page, setPage] = useState(1);
+
     useEffect(() => {
-        fetchList();
-        setHouse(houses);
-    },[house])
-    //console.log("[apt]:",apt);
-    let housesTag = null;
-    
-    /*let housesTag = houses.data.map((house=> <tr key={house.PBLANC_NO}>
+      fetchList(page, selectedArea);
+    },[page])
+
+    const areaTag = loading ? null : <select value={selectedArea} onChange={(e)=> handleChangeArea(e)}>
+                                            {areaList.map((area =>
+                                                <option value={area.key}>{area.name}</option>
+                                            ))}
+                                    </select>
+   
+   const housesTag = loading ? (<tr><td colSpan="12">loading...</td></tr>) : 
+                                            err === null ?
+                                            houses.data.map((house=> <tr key={house.HOUSE_MANAGE_NO}>
                                                 <td>{house.HOUSE_MANAGE_NO}</td>
                                                 <td>{house.PBLANC_NO}</td>
                                                 <td>{house.HOUSE_NM}</td>
@@ -36,13 +41,43 @@ const AptInfo = ({fetchList, houses}) => {
                                                 <td>{house.CNSTRCT_ENTRPS_NM}</td>
                                                 <td>{house.SPECLT_RDN_EARTH_AT}</td>
                                               </tr>
-        )
-     );*/
+                                             )
+                                             ) : 
+                                             (<tr><td colSpan="12">오류가 발생하였습니다.</td></tr>)
+                                              
+    const totalCount = loading ? 0 : houses.matchCount;
+
+    const handleChangeArea = (e) => {
+        const initialSelectedArea = e.target.value === '' ? '' : e.target.value;
+        changeArea(initialSelectedArea);
+    }
+
+    const handlePageChange = (page) => {
+        setPage(page);
+    }
 
     return (
         <div>
-        <div style={{width:'100%',height:'850px',overflowX:'auto'}}>
-        <p style={{float:'left', fontWeight:'bold'}}>총 건수: {houses.totalCount}</p>
+
+        <Form>
+            <FormGroup row>
+                <Label
+                for="exampleEmail"
+                sm={1}
+                >
+                총 건수: {totalCount}
+                </Label>
+                <Label
+                for="exampleEmail"
+                sm={2}
+                >
+                공급지역명&nbsp; 
+                {areaTag}
+                </Label>
+            </FormGroup>
+        </Form>
+
+        <div style={{width:'100%',height:'80vh',overflowX:'auto', overflowY:'auto'}}>    
         <Table bordered style={{width:'100%'}}>
             <thead>
                 <tr>
@@ -61,23 +96,28 @@ const AptInfo = ({fetchList, houses}) => {
                 </tr>
             </thead>
             <tbody>
-                {housesTag}
+              {housesTag}
             </tbody>
         </Table>
         </div>
+        <Paging page={page} count={totalCount} setPage={handlePageChange} />
     </div>
     );
 };
 
 const mapStateToProps = ({housesObj}) => {
-    //console.log("==========================s:",housesObj);
+    console.log("housesObj.areaList:",housesObj.areaList);
     return {
-        houses: housesObj.items
+        houses: housesObj.items,
+        loading: housesObj.loading,
+        err: housesObj.err,
+        areaList: housesObj.areaList,
+        selectedArea : housesObj.selectedArea
     }
 }
 
 const mapDispatchToProps = {
-    fetchList
+    fetchList, changeArea
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AptInfo);
