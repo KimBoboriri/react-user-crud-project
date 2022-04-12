@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OfficeInfo = () => {
+const OfficeChart = () => {
     return (
         <div>
             준비중입니다...
@@ -8,4 +8,4 @@ const OfficeInfo = () => {
     );
 };
 
-export default OfficeInfo;
+export default OfficeChart;

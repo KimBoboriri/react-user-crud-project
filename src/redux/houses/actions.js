@@ -43,3 +43,14 @@ export const changeArea = (area) => {
         dispatch(changeSelectedArea(area))
     }
 }
+
+export const fetchChartList = () => {
+    const url = `https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail?page=1&perPage=10000&serviceKey=${process.env.REACT_APP_APT_INFO_OPENAPI_KEY}`;
+    return(dispatch) => {
+        dispatch(fetchListRequest())
+        fetch(url)
+        .then(response => response.json())
+        .then(list => dispatch(fetchListSuccess(list)))
+        .catch(error => dispatch(fetchListFail(error)))
+    }
+}
